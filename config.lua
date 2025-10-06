@@ -1,5 +1,7 @@
 Config = {
 
+    DefaultPlate = false, -- if set to a string that will be the plate for all vehicles spawned from the garage ex: "POLICE" if set to false it will check if the specific vehicle has a plate otherwise it will generate a random plate
+
     PedPos = vector3(443.29202270508, -1012.9042358398, 28.590444564819 - 0.985),
     PedHeading = 180.0,
     PedModel = "s_m_y_cop_01",
@@ -7,9 +9,9 @@ Config = {
     MarkerPos = vector3(443.38076782227, -1013.923034668, 28.60555267334),
 
     GarageVehicles = {
-        {vehicleLabel = "Volvo XC70", vehicleModel = "police"},
-        {vehicleLabel = "Volvo V90", vehicleModel = "police2"},
-        {vehicleLabel = "Volvo V90CC", vehicleModel = "police3"},
+        {vehicleLabel = "Volvo XC70", vehicleModel = "police", plate = "POLIS1"},
+        {vehicleLabel = "Volvo V90", vehicleModel = "police2", plate = "POLIS2"},
+        {vehicleLabel = "Volvo V90CC", vehicleModel = "police3", plate = "POLIS3"},
         {vehicleLabel = "Volvo V70", vehicleModel = "police5"},
         {vehicleLabel = "Volvo XC90", vehicleModel = "police5"},
         {vehicleLabel = "Saab W-Båge", vehicleModel = "police5"},

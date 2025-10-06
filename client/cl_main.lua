@@ -7,7 +7,7 @@ Citizen.CreateThread(function()
       Citizen.Wait(0)
     end
     Citizen.Wait(500)
-  
+
     PlayerData = ESX.GetPlayerData()
   end)
 
@@ -53,19 +53,20 @@ Citizen.CreateThread(function()
                 DrawMarker(6, Config.MarkerPos.x, Config.MarkerPos.y, Config.MarkerPos.z - 0.985, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 1.0, 1.0, 1.0, 0, 255, 0, 100, false, true, 2, false, false, false, false)
 
                 if IsControlJustPressed(1, 38) then
+                    local vehicleData = {}
                     for _,vehicles in pairs(Config.GarageVehicles) do
-                        local vehicleData = {}
                         table.insert(vehicleData, {
                             VehicleLabel = vehicles.vehicleLabel,
-                            VehicleModel = vehicles.vehicleModel
-                        })
-                        SendNUIMessage({
-                            action = "OpenGarageMenu",
-                            data = {
-                                VehicleData = vehicleData
-                            }
+                            VehicleModel = vehicles.vehicleModel,
+                            Plate = vehicles.plate
                         })
                     end
+                    SendNUIMessage({
+                        action = "OpenGarageMenu",
+                        data = {
+                            VehicleData = vehicleData
+                        }
+                    })
                 end
             end
 
@@ -79,7 +80,7 @@ Citizen.CreateThread(function()
                 sleepThread = 5
                 Funcs.Text3D(Config.SpawnVehiclePos, "[~p~E~s~] Parkera")
                 DrawMarker(6, Config.SpawnVehiclePos.x, Config.SpawnVehiclePos.y, Config.SpawnVehiclePos.z - 0.985, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 5.0, 5.0, 5.0, 0, 255, 0, 100, false, true, 2, false, false, false, false)
-                
+
                 if IsControlJustPressed(1, 38) then
                     ESX.Game.DeleteVehicle(GetVehiclePedIsIn(PlayerPedId(), false))
                 end
