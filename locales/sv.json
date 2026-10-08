@@ -1,0 +1,21 @@
+{
+  "open_garage": "Öppna garaget",
+  "open_garage_textui": "[E] Öppna garaget",
+  "store_vehicle_textui": "[E] Parkera fordonet",
+  "menu_vehicle_description": "Ta ut det här fordonet",
+  "no_vehicles": "Det finns inga fordon för din grad i det här garaget.",
+  "taken_out": "Din %s är redo.",
+  "stored": "Fordonet är parkerat.",
+  "not_allowed": "Du har inte tillgång till det här garaget.",
+  "not_on_duty": "Du måste vara i tjänst.",
+  "too_far": "Du är för långt från garaget.",
+  "cooldown": "Vänta en stund innan du tar ut ett till fordon.",
+  "busy": "Din förra begäran hanteras fortfarande.",
+  "spawn_blocked": "Alla parkeringsplatser är blockerade. Flytta fordonen ur vägen.",
+  "spawn_failed": "Fordonet kunde inte skapas. Säg till en admin.",
+  "limit_reached": "Parkera ett av dina garagefordon först.",
+  "not_garage_vehicle": "Det här fordonet hör inte hemma i det här garaget.",
+  "no_vehicle": "Du sitter inte i något fordon.",
+  "not_ready": "Garaget startar fortfarande. Försök igen om en stund.",
+  "server_no_response": "Servern svarade inte. Försök igen."
+}

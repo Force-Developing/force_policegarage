@@ -1,0 +1,21 @@
+{
+  "open_garage": "Open garage",
+  "open_garage_textui": "[E] Open garage",
+  "store_vehicle_textui": "[E] Store vehicle",
+  "menu_vehicle_description": "Take out this vehicle",
+  "no_vehicles": "There are no vehicles for your rank in this garage.",
+  "taken_out": "Your %s is ready.",
+  "stored": "Vehicle stored.",
+  "not_allowed": "You don't have access to this garage.",
+  "not_on_duty": "You have to be on duty.",
+  "too_far": "You are too far away from the garage.",
+  "cooldown": "Wait a moment before you take out another vehicle.",
+  "busy": "Your last request is still being handled.",
+  "spawn_blocked": "Every parking spot is blocked. Move the vehicles out of the way.",
+  "spawn_failed": "The vehicle could not be spawned. Tell an admin.",
+  "limit_reached": "Store one of your garage vehicles first.",
+  "not_garage_vehicle": "This vehicle doesn't belong in this garage.",
+  "no_vehicle": "You are not in a vehicle.",
+  "not_ready": "The garage is still starting. Try again in a moment.",
+  "server_no_response": "The server didn't respond. Try again."
+}
