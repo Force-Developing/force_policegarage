@@ -395,7 +395,6 @@ if IS_SERVER then
   function GetPlayerJob() return nil end
   function GiveVehicleKeys() end
 else
-  function IsPlayerLoaded() return false end
   function GetPlayerJob() return nil end
 end
 
