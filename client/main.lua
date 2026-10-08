@@ -12,6 +12,7 @@ local oxZones = {}      -- ox_target zone ids
 local qbZones = {}      -- qb-target zone names
 local shownText = nil   -- key of the text UI this resource shows
 local busy = false
+local lastKeyPress = 0
 
 local function notify(message, notifyType)
   lib.notify({ description = message, type = notifyType or "inform" })
@@ -181,16 +182,21 @@ local function addTarget(garage)
         canInteract = canInteract, onSelect = open,
       } },
     })
-    return true
   elseif target == "qb-target" then
     exports["qb-target"]:AddCircleZone(name, garage.coords, 1.5, { name = name, debugPoly = false, useZ = true }, {
       options = { { icon = "fas fa-warehouse", label = locale("open_garage"), canInteract = canInteract, action = open } },
       distance = 2.5,
     })
     qbZones[#qbZones + 1] = name
-    return true
   end
-  return false
+end
+
+local function addTargets()
+  oxZones, qbZones = {}, {}
+  for _, garage in pairs(Config.Garages) do
+    local ok, err = pcall(addTarget, garage)
+    if not ok then Log("error", ("Garage '%s': adding the target zone failed: %s"):format(garage.id, tostring(err))) end
+  end
 end
 
 local function setupGarage(garage)
@@ -212,18 +218,19 @@ local function setupGarage(garage)
     })
   end
 
-  local hasTarget = addTarget(garage)
+  local hasTarget = GetTargetSystem() ~= "none"
   local textKey = "menu:" .. id
   points[#points + 1] = lib.points.new({
     coords = vector3(garage.coords.x, garage.coords.y, garage.coords.z),
     distance = MARKER_DISTANCE,
     nearby = function(point)
-      if cache.vehicle or not canUse(garage) then return hideText(textKey) end
+      if cache.vehicle or lib.getOpenContextMenu() or not canUse(garage) then return hideText(textKey) end
       if Config.DrawMarkers then drawMarker(garage.coords, 1.0, 40, 120, 255) end
       if hasTarget then return end
       if point.currentDistance > 1.5 then return hideText(textKey) end
       showText(textKey, locale("open_garage_textui"))
-      if IsControlJustReleased(0, KEY_E) then
+      if IsControlJustReleased(0, KEY_E) and GetGameTimer() - lastKeyPress > 500 then
+        lastKeyPress = GetGameTimer()
         hideText(textKey)
         OpenGarageMenu(id)
       end
@@ -243,7 +250,8 @@ local function setupGarage(garage)
         if Config.DrawMarkers then drawMarker(store.coords, store.radius * 2.0, 255, 80, 80) end
         if point.currentDistance > store.radius then return hideText(storeKey) end
         showText(storeKey, locale("store_vehicle_textui"))
-        if IsControlJustReleased(0, KEY_E) and not busy then
+        if IsControlJustReleased(0, KEY_E) and not busy and GetGameTimer() - lastKeyPress > 500 then
+          lastKeyPress = GetGameTimer()
           hideText(storeKey)
           CreateThread(function() StoreVehicle(vehicle) end)
         end
@@ -253,12 +261,37 @@ local function setupGarage(garage)
   end
 end
 
+local targetsAdded = false
+
 OnEnvironmentReady(function()
   for _, garage in pairs(Config.Garages) do
     local ok, err = pcall(setupGarage, garage)
     if not ok then Log("error", ("Garage '%s' could not be set up: %s"):format(tostring(garage.id), tostring(err))) end
   end
-  Debug("info", "Garages ready (target: %s)", tostring(GetTargetSystem()))
+
+  local target = GetTargetSystem()
+  if target == "none" then return end
+  -- The client starts resources in server.cfg order: a target ensured after this resource isn't running here yet
+  CreateThread(function()
+    local nextWarning = GetGameTimer() + 10000
+    while GetResourceState(target) ~= "started" do
+      Wait(250)
+      if GetGameTimer() >= nextWarning then
+        Log("warn", ("Still waiting for %s to start on this client."):format(target))
+        nextWarning = GetGameTimer() + 10000
+      end
+    end
+    if targetsAdded then return end
+    targetsAdded = true
+    addTargets()
+    Debug("info", "Garage target zones added (%s)", target)
+  end)
+end)
+
+-- A restarted target resource has forgotten our zones
+AddEventHandler("onClientResourceStart", function(resource)
+  if not targetsAdded or resource ~= GetTargetSystem() then return end
+  addTargets()
 end)
 
 AddEventHandler("onResourceStop", function(resource)
