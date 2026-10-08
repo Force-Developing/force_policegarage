@@ -228,6 +228,11 @@ function RegisterFramework(name, init)
   table.insert(frameworkInits[name], init)
 end
 
+--- True once the framework is known on this side
+function IsFrameworkReady()
+  return frameworkActive
+end
+
 --- Resource name of the active framework (nil for custom)
 function GetFrameworkResource()
   return environment.framework and environment.framework.resource
