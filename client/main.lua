@@ -261,6 +261,9 @@ local function setupGarage(garage)
   end
 end
 
+exports("openGarage", OpenGarageMenu)
+exports("storeVehicle", function(vehicle) StoreVehicle(vehicle or cache.vehicle) end)
+
 local targetsAdded = false
 
 OnEnvironmentReady(function()
