@@ -29,6 +29,15 @@ No database is used.
 
 https://docs.forcedevelopments.com/free-resources/force_policegarage/introduction
 
+## More from Force Developments
+
+Paid resources that pair well with this one. Escrow-protected, documented, with free updates:
+
+- **[Force Phonetracking](https://forcedevelopments.com/scripts/force-phonetracking?utm_source=github&utm_medium=readme&utm_campaign=force_policegarage)**: trace player phones.
+- **[Force Invoices](https://forcedevelopments.com/scripts/force-invoices?utm_source=github&utm_medium=readme&utm_campaign=force_policegarage)**: personal and job billing.
+
+Want all of them? [All Resources](https://forcedevelopments.com/scripts/all-resources-1-month?utm_source=github&utm_medium=readme&utm_campaign=force_policegarage) is a monthly subscription that includes every paid resource. Browse the full catalogue at [forcedevelopments.com](https://forcedevelopments.com/scripts?utm_source=github&utm_medium=readme&utm_campaign=force_policegarage).
+
 ## License
 
 Apache 2.0, see [LICENSE](LICENSE).
